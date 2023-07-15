@@ -11,12 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AfterRun {
-
     private final ResourceLoader resourceLoader;
     private final LogRepository logRepository;
 
@@ -30,22 +30,21 @@ public class AfterRun {
             Path path = Paths.get(resource.getFile().toURI());
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
-                if (line.contains("ERROR")) {
+                if (line.contains("ERROR") && line.contains("|")) {
                     String[] splitLine = line.split("\\|");
                     Log log = new Log();
 
                     for (String sl : splitLine) {
                         int contentStartIndex = sl.indexOf("] : ");
                         String content = sl.substring(contentStartIndex + 4).trim();
-
                         if(sl.contains("[ 고객 id ]")){
-                            log.setUserId(content);
+                            if (content != null) log.setUserId(content);
                         }else if(sl.contains("[ 에러 유형 ]")){
-                            log.setErrorCode(content);
+                            if (content != null) log.setErrorCode(content);
                         } else if (sl.contains("[ 에러 시간 ]")) {
-                            log.setErrorTime(content);
+                            if (content != null) log.setErrorTime(content);
                         } else if (sl.contains("[ 에러메시지 ]")) {
-                            log.setErrorMessage(content);
+                            if (content != null) log.setErrorMessage(content);
                         }
 //                        int titleStartIndex = sl.indexOf("[ ");
 //                        int titleEndIndex = sl.indexOf(" ]");
@@ -59,7 +58,7 @@ public class AfterRun {
 //                            System.out.println(title + " : " + content);
 //                        }
                     }
-                    logRepository.save(log,Log.class);
+                    logRepository.save(log);
                 }
             }
         } else {
