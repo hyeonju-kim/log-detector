@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,25 +40,16 @@ public class AfterRun {
                         int contentStartIndex = sl.indexOf("] : ");
                         String content = sl.substring(contentStartIndex + 4).trim();
                         if(sl.contains("[ 고객 id ]")){
-                            if (content != null) log.setUserId(content);
+                             log.setUserId(content);
                         }else if(sl.contains("[ 에러 유형 ]")){
-                            if (content != null) log.setErrorCode(content);
+                            log.setErrorCode(content);
                         } else if (sl.contains("[ 에러 시간 ]")) {
-                            if (content != null) log.setErrorTime(content);
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            LocalDateTime time = LocalDateTime.parse(content, formatter);
+                            log.setErrorTime(time);
                         } else if (sl.contains("[ 에러메시지 ]")) {
-                            if (content != null) log.setErrorMessage(content);
+                            log.setErrorMessage(content);
                         }
-//                        int titleStartIndex = sl.indexOf("[ ");
-//                        int titleEndIndex = sl.indexOf(" ]");
-//                        if (titleEndIndex != -1) { // ] 가 존재하는 경우에만 처리
-//                            titleEndIndex += 2;
-//                            String title = sl.substring(titleStartIndex, titleEndIndex).trim(); // [고객 id]
-//                            int contentStartIndex = sl.indexOf("] : ");
-//                            String content = sl.substring(contentStartIndex + 4).trim(); // 5
-//
-//
-//                            System.out.println(title + " : " + content);
-//                        }
                     }
                     logRepository.save(log);
                 }

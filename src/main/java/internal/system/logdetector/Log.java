@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -19,7 +21,7 @@ public class Log {
     private String errorCode;
 
     @Column(name = "ERROR_TIME")
-    private String errorTime;
+    private LocalDateTime errorTime;
 
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
