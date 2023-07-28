@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h1>URL Shortening</h1>
+    </div>
+    <h4 class="mb-3">URL을 입력하세요!</h4>
+    <form th:action="@{/basic/layout}" method="post">
+        <div>
+            <label for="longUrl"></label>
+            <input type="text" id="longUrl" name="longUrl" class="form-control" placeholder="url을 입력하세요"/>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg">등록하기</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

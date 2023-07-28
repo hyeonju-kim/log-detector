@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Jua', sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="container" style="max-width: 1000px">
+  <div class="py-5 text-center">
+    <h1>Error Log 전체보기</h1>
+  </div>
+  <div class="mybtns">
+    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/timeDesc'">시간순</button>
+  </div>
+  <form th:action="@{/log/timeRng}" method="get">
+    <div class="input-group">
+      <span class="input-group-text">시작|종료시간</span>
+      <!-- name 속성 추가 -->
+      <input type="text" name="start" aria-label="start" class="form-control">
+      <input type="text" name="end" aria-label="end" class="form-control">
+    </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg">검색</button>
+      </div>
+    </div>
+  </form>
+  <hr class="my-4">
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>고객 id</th>
+        <th>에러 유형</th>
+        <th>에러 시간</th>
+        <th>에러 메시지</th>
+      </thead>
+      <tbody>
+      <tr th:each="log :${foundAllLog}">
+        <td th:text="${log.getUserId()}">고객 id</td>
+        <td th:text="${log.getErrorCode()}">에러 유형</td>
+        <td th:text="${log.getErrorTime()}">에러 시간</td>
+        <td th:text="${log.getErrorMessage()}">에러 메시지</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
