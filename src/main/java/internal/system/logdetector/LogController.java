@@ -39,28 +39,38 @@ public class LogController {
 
     // 3. 특정 시간 조회
     @GetMapping("/timeRng")  //timeRng?start=0&end=6 이렇게 작성해서 조회
-    public String getLog(@RequestParam Integer start, @RequestParam Integer end, Model model) {
-        List<Log> foundLogByTime = logRepository.findByErrorTimeHourBetween(start, end);
+    public String getLog(@RequestParam String start, @RequestParam String end, Model model) {
+        int startTime = Integer.parseInt(start);
+        int endTime = Integer.parseInt(end);
+        List<Log> foundLogByTime = logRepository.findByErrorTimeHourBetween(startTime, endTime);
         model.addAttribute("foundLogByTime", foundLogByTime);
         return "basic/timeRng";
     }
 
     // 4. 고객 번호로 조회
-    @GetMapping("/user")
-    public List<Log> getLogByUserId(@RequestParam("id") String id) {
-        return logRepository.findByUserId(id);
+    @GetMapping("/userId")
+    public String getLogByUserId(@RequestParam("userId") String userId, Model model) {
+        List<Log> foundLogByUserId = logRepository.findByUserId(userId);
+        model.addAttribute("foundLogByUserId", foundLogByUserId);
+        return "basic/userId";
+
     }
 
     // 5. 가장 많이 나온 에러 코드 조회
     @GetMapping("/mostError")
-    public List<Object> getLogMost() {
-        return logRepository.findMostCommonErrors();
+    public String getLogMost(Model model) {
+        List<Object> foundMostLog = logRepository.findMostCommonErrors();
+        model.addAttribute("foundMostLog", foundMostLog);
+        return "basic/mostError";
+
     }
 
     // 6. 가장 많이 나온 시간대 조회
-    @GetMapping("/mostTime")
-    public List<Object[]> getMostFrequentTime() {
-        return logRepository.findMostFrequentTime();
+    @GetMapping("/mostFrequentTime")
+    public String getMostFrequentTime(Model model) {
+        List<Object[]> mostFrequentTime = logRepository.findMostFrequentTime();
+        model.addAttribute("mostFrequentTime", mostFrequentTime);
+        return "basic/mostFrequentTime";
     }
 
 }

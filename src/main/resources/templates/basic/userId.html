@@ -14,7 +14,7 @@
 <body>
 <div class="container" style="max-width: 1000px">
   <div class="py-5 text-center">
-    <h1>시간 별 Error Log</h1>
+    <h1>유저 별 Error Log</h1>
   </div>
   <div class="mybtns">
     <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log'">메인화면</button>
@@ -30,7 +30,7 @@
         <th>에러 메시지</th>
       </thead>
       <tbody>
-      <tr th:each="log :${foundLogByTime}">
+      <tr th:each="log :${foundLogByUserId}">
         <td th:text="${log.getUserId()}">고객 id</td>
         <td th:text="${log.getErrorCode()}">에러 유형</td>
         <td th:text="${log.getErrorTime()}">에러 시간</td>
