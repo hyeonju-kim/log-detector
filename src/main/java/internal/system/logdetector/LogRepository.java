@@ -26,7 +26,7 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     @Query("SELECT l.errorCode FROM Log l GROUP BY l.errorCode ORDER BY COUNT(l.errorCode) DESC ")
     List<Object> findMostCommonErrors();
 
-    // 6. 가장 많이 나온 시간대 조회
+    // 6. 가장 많이 나온 시간대 순으로 정렬해서 조회
     @Query("SELECT HOUR(l.errorTime) as hour, COUNT(l) as count FROM Log l GROUP BY HOUR(l.errorTime) ORDER BY COUNT(l) DESC")
     List<Object[]> findMostFrequentTime();
 

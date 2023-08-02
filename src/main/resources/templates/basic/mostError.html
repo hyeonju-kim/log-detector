@@ -12,13 +12,16 @@
   </style>
 </head>
 <body>
-<div class="container" style="max-width: 1000px">
+<div class="container" style="max-width: 500px">
   <div class="py-5 text-center">
     <h1>가장 많이나온 에러코드</h1>
   </div>
+  <div class="mybtns">
+    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log'">메인화면</button>
+  </div>
 
   <hr class="my-4">
-  <div>
+  <div class="text-center">
     <table class="table">
       <tbody>
         <tr th:text="${foundMostLog}">에러 유형</tr>

@@ -13,6 +13,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -65,11 +66,25 @@ public class LogController {
 
     }
 
-    // 6. 가장 많이 나온 시간대 조회
+    // 6. 가장 많이 나온 시간대 순으로 정렬해서 조회
     @GetMapping("/mostFrequentTime")
     public String getMostFrequentTime(Model model) {
         List<Object[]> mostFrequentTime = logRepository.findMostFrequentTime();
-        model.addAttribute("mostFrequentTime", mostFrequentTime);
+
+        List<String> timeAndCountList = new ArrayList<>();
+
+        for (Object[] data : mostFrequentTime) {
+            // 배열의 첫 번째 요소인 시간대(hour)와 두 번째 요소인 로그 개수(count)를 추출
+            int hour = (int) data[0];
+            long count = (long) data[1];
+
+            // 시간대와 로그 개수를 문자열로 변환하여 리스트에 추가
+            String timeAndCount = hour + "시 - " + count + "회";
+            timeAndCountList.add(timeAndCount);
+        }
+
+        model.addAttribute("timeAndCountList", timeAndCountList);
+
         return "basic/mostFrequentTime";
     }
 

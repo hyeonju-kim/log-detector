@@ -9,18 +9,38 @@
     * {
       font-family: 'Jua', sans-serif;
     }
+    /* 버튼 아래에 간격 추가 */
+    .mybtns {
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .input-group {
+      justify-content: space-between;
+      margin-bottom: 10px;
+      /*width: 500px;*/
+    }
+
+
+
+
   </style>
 </head>
 <body>
+
 <div class="container" style="max-width: 1000px">
+
   <div class="py-5 text-center">
     <h1>Error Log 전체보기</h1>
   </div>
+
   <div class="mybtns">
     <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/timeDesc'">시간순</button>
+    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/mostError'">가장 많이나온 에러코드</button>
+    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/mostFrequentTime'">가장 많이나온 시간대</button>
   </div>
+
   <form th:action="@{/log/timeRng}" method="get">
-    <div class="input-group">
+    <div class="input-group" style="width: 565px">
       <span class="input-group-text">시작 | 종료시간</span>
       <!-- name 속성 추가 -->
       <input type="text" name="start" aria-label="start" class="form-control">
@@ -32,8 +52,8 @@
   </form>
 
   <form th:action="@{/log/userId}" method="get">
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="inputGroup-sizing-default">사용자 id</span>
+    <div class="input-group" style="width: 725px">
+      <span class="input-group-text" id="inputGroup-sizing-default" style="width: 119px ">사용자 id</span>
       <input type="text" class="form-control" name="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
       <div class="col">
         <button class="w-10 btn btn-primary btn-lg">검색</button>
@@ -41,17 +61,11 @@
     </div>
   </form>
 
-  <div class="mybtns">
-    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/mostError'">가장 많이나온 에러코드</button>
-  </div>
 
-  <div class="mybtns">
-    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log/mostFrequentTime'">가장 많이나온 시간대</button>
-  </div>
 
 
   <hr class="my-4">
-  <div>
+  <div class="text-center">
     <table class="table">
       <thead>
       <tr>

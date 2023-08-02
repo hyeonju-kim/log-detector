@@ -12,16 +12,23 @@
   </style>
 </head>
 <body>
-<div class="container" style="max-width: 1000px">
+<div class="container" style="max-width: 500px">
   <div class="py-5 text-center">
     <h1>에러가 가장 많이나온 시간대</h1>
   </div>
+  <div class="mybtns">
+    <button type="button" class="w-20 btn btn-primary btn-lg" onclick="location.href='/log'">메인화면</button>
+  </div>
 
   <hr class="my-4">
-  <div>
+  <div class="text-center">
     <table class="table">
       <tbody>
-        <tr th:text="${mostFrequentTime}">시간대</tr>
+      <!-- timeAndCountList 리스트를 순회하면서 데이터에 접근 -->
+      <tr th:each="timeAndCount : ${timeAndCountList}">
+        <!-- 각 요소에서 시간대와 로그 개수를 표시 -->
+        <td th:text="${timeAndCount}">시간대와 로그 개수</td>
+      </tr>
       </tbody>
     </table>
   </div>
